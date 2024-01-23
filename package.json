@@ -1,7 +1,7 @@
 {
-  "name": "it9-banco-backend",
+  "name": "deboo-backend",
   "version": "1.0.0",
-  "description": "backend of the it9 banco trip",
+  "description": "backend of Debbo app",
   "main": "index.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts"

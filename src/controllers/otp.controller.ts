@@ -30,7 +30,7 @@ export const sendotp = async (req: Request, res: Response) => {
         console.log("sending...");
 
         await sendSms(res, plainCode, reqBody.phonenumber);
-        return res.status(200).json({ status: true, data: { otptoken: otpToken } });
+        return res.status(200).json({ status: true, data: { otptoken: otpToken, code: plainCode } });
 
 
     } catch (error: any) {
