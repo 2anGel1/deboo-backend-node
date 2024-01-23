@@ -1,9 +1,7 @@
-import { loginSchema, newPinSchema, phoneSchema, pinResetSchema, signupSchema, updateUserPindSchema, verificationForPinResetSchema } from "./objects";
+import { loginSchema, newPinSchema, phoneSchema, pinResetSchema, signupSchema, updateUserPindSchema } from "./objects";
 import { googleAccessTokenSchema, sessionIdSchema } from "./schemas";
 import vine from "@vinejs/vine";
 
-
-export const verificationForPasswordResetValidator = vine.compile(verificationForPinResetSchema);
 
 export const googleAccessTokenValidator = vine.compile(googleAccessTokenSchema);
 
