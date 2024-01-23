@@ -1,39 +1,24 @@
+import { loginSchema, newPinSchema, phoneSchema, pinResetSchema, signupSchema, updateUserPindSchema, verificationForPinResetSchema } from "./objects";
+import { googleAccessTokenSchema, sessionIdSchema } from "./schemas";
 import vine from "@vinejs/vine";
-import { scanPassSchema } from "./objects";
 
-// Fields
-export const firstNameSchema = vine.string().minLength(1).maxLength(50);
-//
-export const lastNameSchema = vine.string().minLength(1).maxLength(50);
-//
-export const emailSchema = vine.string().email();
-//
-export const usernameSchema = vine.string().minLength(3).maxLength(50);
-//
-export const passwordSchema = vine.string().minLength(5).maxLength(100);
-//
-export const pseudoSchema = vine.string().minLength(1).maxLength(50);
-//
-export const classSchema = vine.string().minLength(1).maxLength(50);
 
-// Objects
-export const updateUserPasswordSchema = vine.object({
-  currentPassword: passwordSchema,
-  newPassword: passwordSchema,
-});
+export const verificationForPasswordResetValidator = vine.compile(verificationForPinResetSchema);
 
-export const storeStudentSchema = vine.object({
-  firstName: firstNameSchema,
-  lastName: lastNameSchema,
-  email: emailSchema,
-  class: classSchema
-})
+export const googleAccessTokenValidator = vine.compile(googleAccessTokenSchema);
 
-// Validators
-export const updateUserPasswordValidator = vine.compile(updateUserPasswordSchema);
-//
-export const storeStudentValidator = vine.compile(storeStudentSchema);
-//
-export const scanPassValidator = vine.compile(scanPassSchema)
+export const updateUserPinValidator = vine.compile(updateUserPindSchema);
+
+export const sessionIdValidator = vine.compile(sessionIdSchema);
+
+export const newPinValidator = vine.compile(newPinSchema);
+
+export const pinResetValidator = vine.compile(pinResetSchema);
+
+export const signupValidator = vine.compile(signupSchema);
+
+export const loginValidator = vine.compile(loginSchema);
+
+export const phoneValidator = vine.compile(phoneSchema);
 
 

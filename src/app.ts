@@ -1,7 +1,6 @@
 const cookieParser = require('cookie-parser');
 import authRoute from "./routes/auth.route";
-import userRoute from "./routes/user.route";
-import passRoute from "./routes/pass.route";
+import otpRoute from "./routes/otp.route";
 const session = require("express-session");
 import { Session } from "express-session";
 import express from "express";
@@ -17,7 +16,7 @@ declare module "express" {
 
 const app = express();
 app.use(cookieParser());
-const basePath = "/api";
+const basePath = "/api/v1";
 app.use(
   cors({
     origin: "*",
@@ -39,9 +38,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(basePath + "/student", userRoute);
 app.use(basePath + "/auth", authRoute);
-app.use(basePath + "/pass", passRoute);
+app.use(basePath + "/otp", otpRoute);
 
 app.use('/ressources', express.static(path.join(__dirname, 'assets')));
 
