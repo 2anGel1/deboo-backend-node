@@ -1,9 +1,9 @@
+import { comparePlainTextToHashedText, hash } from '../utils/hash-utils';
+import { calculateOtpExpiration, sendSms } from '../utils/sms-utils';
+import { generateRandomCode } from '../utils/code-utils';
+import { generateOtpToken } from '../utils/token-utils';
 import { Request, Response } from 'express';
 import { prisma } from "../config";
-import { generateRandomCode } from '../utils/code-utils';
-import { comparePlainTextToHashedText, hash } from '../utils/hash-utils';
-import { generateOtpToken, verifyOtpToken } from '../utils/token-utils';
-import { calculateOtpExpiration, sendSms } from '../utils/sms-utils';
 
 
 export const sendotp = async (req: Request, res: Response) => {
@@ -45,7 +45,6 @@ export const sendotp = async (req: Request, res: Response) => {
     }
 
 }
-
 
 export const checkotp = async (req: Request, res: Response) => {
     try {

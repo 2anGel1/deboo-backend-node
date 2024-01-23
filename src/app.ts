@@ -41,6 +41,4 @@ app.use(express.json());
 app.use(basePath + "/auth", authRoute);
 app.use(basePath + "/otp", otpRoute);
 
-app.use('/ressources', express.static(path.join(__dirname, 'assets')));
-
 export { app };

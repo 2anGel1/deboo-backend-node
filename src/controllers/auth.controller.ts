@@ -2,12 +2,10 @@ import { verificationForPasswordResetValidator, pinResetValidator, newPinValidat
 import { generatePasswordResetToken, verifyPasswordResetToken } from "../utils/token-utils";
 import { passwordResetCookie, sessionIdCookie } from "../constants/cookies-constants";
 import { comparePlainTextToHashedText, hash } from "../utils/hash-utils";
-import PasswordResetMail from "../mail-template/password-reset-mail";
 import { calculateSessionExpiration, createSession, leaveSession } from "../utils/session-utils";
 import { generateRandomCode } from "../utils/code-utils";
 import { Request, Response } from 'express';
 import { prisma } from "../config";
-const axios = require('axios');
 
 // login user
 export const login = async (req: Request, res: Response) => {
@@ -62,7 +60,7 @@ export const loginvalidate = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(200).json({ status: false, message: "Aucun compte avec ce nuémro trouvé.." });
     }
-    
+
     const isPinValid = comparePlainTextToHashedText(
       pin,
       user.pinHash!
