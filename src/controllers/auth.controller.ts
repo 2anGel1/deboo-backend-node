@@ -1,9 +1,6 @@
-import { pinResetValidator, newPinValidator, signupValidator, loginValidator, phoneValidator } from "../validators/user-validators";
-import { generatePasswordResetToken, verifyPasswordResetToken } from "../utils/token-utils";
-import { passwordResetCookie, sessionIdCookie } from "../constants/cookies-constants";
+import { signupValidator, loginValidator, phoneValidator } from "../validators/user-validators";
 import { comparePlainTextToHashedText, hash } from "../utils/hash-utils";
-import { calculateSessionExpiration, createSession, leaveSession } from "../utils/session-utils";
-import { generateRandomCode } from "../utils/code-utils";
+import { createSession, leaveSession } from "../utils/session-utils";
 import { Request, Response } from 'express';
 import { prisma } from "../config";
 
@@ -164,7 +161,7 @@ export const newCodePin = async (req: Request, res: Response) => {
       },
     });
 
-    return res.json({ message: "Mot de passe modifié avec succès" });
+    return res.json({ message: "Mot de passe modifié avec succès", status: true });
   } catch (error: any) {
     // console.log(error);
     if (error.code == "E_VALIDATION_ERROR") {
