@@ -1,6 +1,6 @@
-import express from "express";
 import { checkotp, sendotp } from "../controllers/otp.controller";
 import { otpEmail, requireOtp } from "../middlewares/otp.middleware";
+import express from "express";
 
 const otpRoute = express.Router();
 

@@ -1,3 +1,4 @@
+import AccountVerificationMail from '../mail-template/account-verification-mail';
 import { comparePlainTextToHashedText, hash } from '../utils/hash-utils';
 import { calculateOtpExpiration, sendSms } from '../utils/sms-utils';
 import { generateRandomCode } from '../utils/code-utils';
@@ -6,7 +7,6 @@ import { sendMail } from '../utils/mail-utils';
 import { render } from "@react-email/render";
 import { Request, Response } from 'express';
 import { prisma } from "../config";
-import AccountVerificationMail from '../mail-template/account-verification-mail';
 
 
 export const sendotp = async (req: Request, res: Response) => {

@@ -18,7 +18,7 @@ export const login = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(200).json({ status: false, message: "Aucun compte avec ce nuémro trouvé.." });
+      return res.status(200).json({ status: false, message: "Aucun compte trouvé" });
     }
     // const isPinValid = comparePlainTextToHashedText(
     //   pin,
@@ -56,7 +56,7 @@ export const loginvalidate = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(200).json({ status: false, message: "Aucun compte avec ce nuémro trouvé." });
+      return res.status(200).json({ status: false, message: "Aucun compte trouvé." });
     }
 
     const isPinValid = comparePlainTextToHashedText(
@@ -71,9 +71,9 @@ export const loginvalidate = async (req: Request, res: Response) => {
     return res.status(200).json({ status: true, message: "Login success", token: sessionToken });
 
   } catch (error: any) {
-    console.log(error);
+    // console.error(error);
     if (error.code == "E_VALIDATION_ERROR") {
-      console.log("Erreur de validation");
+      // console.log("Erreur de validation");
       return res.status(200).json({ status: false, message: "Remplissez tous les champs correctement" })
     }
     return res.status(500).json({ message: "Erreur interne au serveur" });
@@ -136,7 +136,7 @@ export const signup = async (req: Request, res: Response) => {
   } catch (error: any) {
     // console.log(error);
     if (error.code == "E_VALIDATION_ERROR") {
-      console.log("Erreur de validation");
+      // console.log("Erreur de validation");
       return res.status(200).json({ status: false, message: "Remplissez tous les champs correctement" })
     }
     return res.status(500).json({ message: "Erreur interne au serveur" });
