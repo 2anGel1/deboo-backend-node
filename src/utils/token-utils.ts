@@ -39,7 +39,7 @@ export const verifyPasswordResetToken = (token: string) => {
 
 export const generateOtpToken = (id: string) => {
   return jwt.sign({ id }, OTP_TOKEN_KEY!, {
-    expiresIn: Date.now() + (5 * 60 * 1000),
+    expiresIn: Date.now() + (2 * 60 * 1000),
   });
 };
 

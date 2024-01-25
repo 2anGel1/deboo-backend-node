@@ -3,9 +3,8 @@ import { Request, Response } from 'express';
 const axios = require("axios");
 
 
-export const sendSms = async (res: Response, code: string, receiver: string) => {
+export const sendSms = async (res: Response, response: any, code: string, receiver: string) => {
 
-    var result = true;
     await axios.post(ORANGE_GET_TOKEN_ENDPOINT, {
         grant_type: "client_credentials"
     },
@@ -14,12 +13,12 @@ export const sendSms = async (res: Response, code: string, receiver: string) => 
                 "Authorization": ORANGE_ACCESS_TOKEN,
                 "Content-Type": "application/x-www-form-urlencoded"
             }
-        }).then((res1: any) => {
+        }).then(async (res1: any) => {
             if (res1.status == 200) {
-                // console.log(res1.data);
+
                 const access_token = res1.data.access_token;
 
-                axios.post(ORANGE_SEND_SMS_ENDPOINT, {
+                await axios.post(ORANGE_SEND_SMS_ENDPOINT, {
                     "outboundSMSMessageRequest": {
                         "address": "tel:+225" + receiver,
                         "outboundSMSTextMessage": {
@@ -34,28 +33,25 @@ export const sendSms = async (res: Response, code: string, receiver: string) => 
                     }
                 })
                     .then((res2: any) => {
-                        console.log(res2.status);
-                        if (res2.status != 201) {
-                            result = false;
+                        if (res2.status == 201) {
+                            return res.status(200).json(response);
+                        } else {
+                            return res.status(200).json({ status: false, message: "Echec d'envoi du sms" });
                         }
-
                     }).catch((err2: any) => {
-                        console.error(err2.response.status);
-                        result = false;
+                        // console.error(err2);
+                        return res.status(200).json({ status: false, message: "Echec d'envoi du sms", error: err2 });
                     })
             }
 
         }).catch((err1: any) => {
-            console.error(err1);
-            result = false;
+            // console.error(err1);
+            return res.status(200).json({ status: false, message: "Echec d'envoi du sms", error: err1 });
         });
-
-    return result;
 }
 
 export const calculateOtpExpiration = () => {
     const currentDate = new Date();
-    const hoursToAdd = 24;
-    const expirationDate = new Date(currentDate.getTime() + 5 * 60 * 1000);
+    const expirationDate = new Date(currentDate.getTime() + 2 * 60 * 1000);
     return expirationDate;
-  };
+};

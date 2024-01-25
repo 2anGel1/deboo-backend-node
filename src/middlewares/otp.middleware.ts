@@ -8,7 +8,6 @@ export const requireOtp = async (
     res: Response,
     next: NextFunction
 ) => {
-
     const tok = req.headers.authorization?.toString();
     const otpToken = tok?.substring(7, tok.length);
 
@@ -30,6 +29,17 @@ export const requireOtp = async (
     req.body.otp = otp;
     console.log(otp);
 
+    next();
+
+}
+
+export const otpEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+
+    req.body.sendemail = true;
     next();
 
 }

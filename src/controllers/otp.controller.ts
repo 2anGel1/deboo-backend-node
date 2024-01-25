@@ -2,8 +2,11 @@ import { comparePlainTextToHashedText, hash } from '../utils/hash-utils';
 import { calculateOtpExpiration, sendSms } from '../utils/sms-utils';
 import { generateRandomCode } from '../utils/code-utils';
 import { generateOtpToken } from '../utils/token-utils';
+import { sendMail } from '../utils/mail-utils';
+import { render } from "@react-email/render";
 import { Request, Response } from 'express';
 import { prisma } from "../config";
+import AccountVerificationMail from '../mail-template/account-verification-mail';
 
 
 export const sendotp = async (req: Request, res: Response) => {
@@ -19,6 +22,7 @@ export const sendotp = async (req: Request, res: Response) => {
             data: {
                 expires: calculateOtpExpiration(),
                 userphone: reqBody.phonenumber,
+                useremail: reqBody.email,
                 createdAt: new Date(),
                 type: reqBody.type,
                 code: hashedCode,
@@ -27,10 +31,18 @@ export const sendotp = async (req: Request, res: Response) => {
 
         const otpToken = generateOtpToken(otp.id);
 
-        console.log("sending...");
+        if (reqBody.sendemail) {
+            return await sendMail({
+                res,
+                response: { status: true, data: { otptoken: otpToken, code: plainCode } },
+                subject: "Vérification de votre compte",
+                to: reqBody.email,
+                html: render(AccountVerificationMail({ verificationCode: plainCode })),
+            });
+        } else {
+            return await sendSms(res, { status: true, data: { otptoken: otpToken, code: plainCode } }, plainCode, reqBody.phonenumber);
 
-        await sendSms(res, plainCode, reqBody.phonenumber);
-        return res.status(200).json({ status: true, data: { otptoken: otpToken, code: plainCode } });
+        }
 
 
     } catch (error: any) {
@@ -52,7 +64,7 @@ export const checkotp = async (req: Request, res: Response) => {
         const otp = reqBody.otp;
 
         if (otp.verified) {
-            return res.json({ status: false, message: "Code déja vérifié" });
+            return res.json({ status: false, message: "Code expiré" });
         }
 
         const codeIsValid = comparePlainTextToHashedText(reqBody.pin, otp.code);
@@ -77,7 +89,7 @@ export const checkotp = async (req: Request, res: Response) => {
         //
         console.log(error);
         if (error.code == "E_VALIDATION_ERROR") {
-            console.log("Erreur de validation");
+            // console.log("Erreur de validation");
             return res.status(200).json({ status: false, message: "Remplissez tous les champs correctement" })
         }
         return res.status(500).json({ message: "Erreur interne au serveur" });

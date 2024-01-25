@@ -15,7 +15,8 @@ model Otp {
   createdAt  DateTime  @default(now())
   verifiedAt DateTime?
   expires    DateTime
-  userphone  String
+  userphone  String?
+  useremail  String?
   code       String
 }
 
