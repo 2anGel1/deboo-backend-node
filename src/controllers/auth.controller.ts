@@ -32,7 +32,6 @@ export const login = async (req: Request, res: Response) => {
     return res.status(200).json({ status: true, message: "Login success", data: { user: user } });
 
   } catch (error: any) {
-    console.log(error);
     if (error.code == "E_VALIDATION_ERROR") {
       console.log("Erreur de validation");
       return res.status(200).json({ status: false, message: "Remplissez tous les champs correctement" })

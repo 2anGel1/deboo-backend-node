@@ -18,15 +18,13 @@ export const SENDER_MAIL_ADDRESS = process.env.SENDER_MAIL_ADDRESS || "";
 
 export const ORANGE_ACCESS_TOKEN = process.env.ORANGE_ACCESS_TOKEN;
 
+export const WAVE_ACCESS_TOKEN = process.env.WAVE_ACCESS_TOKEN;
+
 export const OTP_TOKEN_KEY = process.env.OTP_TOKEN_KEY;
 
 export const PORT = Number(process.env.PORT);
 
 export const prisma = new PrismaClient;
-
-export const readFilePath = "https://it9-banco-backend.onrender.com/ressources";
-// export const readFilePath = "http://localhost:8000/ressources";
-export const writeFilePath = process.cwd() + "/src/assets";
 
 
 

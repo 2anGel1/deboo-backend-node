@@ -23,21 +23,45 @@ model Otp {
 model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   id           String   @id @default(uuid())
-  userId       String
   active       Boolean  @default(true)
   sessionToken String   @unique
+  userId       String
   expires      DateTime
 }
 
 model User {
-  id          String    @id @default(uuid())
-  createdAt   DateTime  @default(now())
-  email       String    @unique
-  phonenumber String    @unique
-  sessions    Session[]
-  pinHash     String
-  firstname   String
-  lastname    String
+  id           String        @id @default(uuid())
+  createdAt    DateTime      @default(now())
+  email        String        @unique
+  phonenumber  String        @unique
+  transactions Transaction[]
+  sessions     Session[]
+  pinHash      String
+  firstname    String
+  lastname     String
+}
+
+model Operator {
+  id    String @id @default(uuid())
+  image String
+  code  String
+  label String
+  fee   Int
+}
+
+model Transaction {
+  sender            User      @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now())
+  sentAt            DateTime?
+  receivedAt        DateTime?
+  receiver          String?
+  amount            String?
+  sendReferences    String?
+  receiveReferences String?
+  senderId          String
+  receiveoperatorId String
+  sendoperatorId    String
 }
 
 enum OtpType {

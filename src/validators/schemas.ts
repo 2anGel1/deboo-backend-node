@@ -17,4 +17,10 @@ export const googleAccessTokenSchema = vine.string();
 
 export const emailSchema = vine.string().email();
 
+export const uidSchema = vine.string().uuid();
+
 export const jwtSchema = vine.string().jwt();
+
+export const amountSchema = vine.string();
+
+

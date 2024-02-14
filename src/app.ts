@@ -1,3 +1,4 @@
+import transactionRoute from "./routes/transaction.route";
 const cookieParser = require('cookie-parser');
 import authRoute from "./routes/auth.route";
 import otpRoute from "./routes/otp.route";
@@ -5,8 +6,8 @@ const session = require("express-session");
 import { Session } from "express-session";
 import express from "express";
 const cors = require("cors");
-import path from 'path';
 import ms from "ms";
+import operatorRoute from "./routes/operator.route";
 
 declare module "express" {
   interface Request {
@@ -38,6 +39,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(basePath + "/transaction", transactionRoute);
+app.use(basePath + "/operator", operatorRoute);
 app.use(basePath + "/auth", authRoute);
 app.use(basePath + "/otp", otpRoute);
 
