@@ -39,13 +39,13 @@ export const sendSms = async (res: Response, response: any, code: string, receiv
                             return res.status(200).json({ status: false, message: "Echec d'envoi du sms" });
                         }
                     }).catch((err2: any) => {
-                        // console.error(err2);
+                        console.error("ERROR 2", err2);
                         return res.status(200).json({ status: false, message: "Echec d'envoi du sms", error: err2 });
                     })
             }
 
         }).catch((err1: any) => {
-            // console.error(err1);
+            console.error("ERROR 1", err1);
             return res.status(200).json({ status: false, message: "Echec d'envoi du sms", error: err1 });
         });
 }

@@ -47,7 +47,7 @@ export const sendotp = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         //
-        console.log(error);
+        console.error(error);
         if (error.code == "E_VALIDATION_ERROR") {
             console.log("Erreur de validation");
             return res.status(200).json({ status: false, message: "Remplissez tous les champs correctement" })
