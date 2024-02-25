@@ -1,16 +1,13 @@
 import { PrismaClient } from '@prisma/client'
 import dotenv from "dotenv";
 
-
 dotenv.config();
+
+export const ORANGE_ACCESS_TOKEN_TRANSACTION = process.env.ORANGE_ACCESS_TOKEN_TRANSACTION;
 
 export const ACCOUNT_VERIFICATION_TOKEN_KEY = process.env.ACCOUNT_VERIFICATION_TOKEN_KEY;
 
-export const ORANGE_GET_TOKEN_ENDPOINT = process.env.ORANGE_GET_TOKEN_ENDPOINT;
-
 export const PASSWORD_RESET_TOKEN_KEY = process.env.PASSWORD_RESET_TOKEN_KEY;
-
-export const ORANGE_SEND_SMS_ENDPOINT = process.env.ORANGE_SEND_SMS_ENDPOINT;
 
 export const SENDER_MAIL_PASSWORD = process.env.SENDER_MAIL_PASSWORD || "";
 

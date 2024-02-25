@@ -5,6 +5,7 @@ const axios = require("axios");
 export const waveSend = async (res: Response, data: any) => {
 
     var re = null;
+    const fail = { status: false, message: "Echec du transfert. Contactez nous pour plus d'informations" };
 
     await axios.post("https://api.wave.com/v1/checkout/sessions",
         {
@@ -34,10 +35,10 @@ export const waveSend = async (res: Response, data: any) => {
 
         })
         .catch((error: any) => {
-            re = { status: false, error: error }
+            re = fail;
         })
 
-    re = re == null ? { status: false, message: "Echec de transfert; cause inconnue" } : re
+    re = re == null ? fail : re;
     return re;
 
 }
@@ -45,12 +46,13 @@ export const waveSend = async (res: Response, data: any) => {
 export const waveTransfert = async (res: Response, data: any) => {
 
     var re = null;
+    const fail = { status: false, message: "Echec du transfert. Contactez nous pour plus d'informations" };
 
     await axios.post("https://api.wave.com/v1/payout",
         {
             mobile: "+225" + data.receiver,
             receive_amount: data.amount,
-            name: data.receivername,
+            name: data.receiver,
             currency: "XOF",
         },
         {
@@ -77,10 +79,10 @@ export const waveTransfert = async (res: Response, data: any) => {
 
         })
         .catch((error: any) => {
-            re = { status: false, error: error }
+            re = fail;
         })
 
-    re = re == null ? { status: false, message: "Echec de transfert; cause inconnue" } : re
+    re = re == null ? fail : re
     return re;
 
 }

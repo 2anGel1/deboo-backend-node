@@ -1,5 +1,6 @@
 import { transactionValidator } from '../validators/transaction-validators';
-import { waveSend, waveTransfert } from '../utils/transaction-utils';
+import { waveSend, waveTransfert } from '../utils/wave-utils';
+import { orangeSend } from '../utils/orange-utils';
 import { Request, Response } from 'express';
 import { prisma } from "../config";
 
@@ -8,8 +9,8 @@ export const start = async (req: Request, res: Response) => {
 
     try {
 
-        const reqBody = req.body;
-        const { amount, senderId, receiveoperatorId, sendoperatorId, receiver } = await transactionValidator.validate(reqBody);
+        var reqBody = req.body;
+        const { otp, amount, senderId, receiveoperatorId, sendoperatorId, receiver } = await transactionValidator.validate(reqBody);
 
         const senderoperator = await prisma.operator.findUnique({
             where: {
@@ -23,12 +24,22 @@ export const start = async (req: Request, res: Response) => {
             }
         });
 
+        const sender = await prisma.user.findUnique({
+            where: {
+                id: senderId
+            }
+        });
+
         if (!senderoperator) {
             return res.json({ status: false, message: "Operateur d'envoi introuveable" });
         }
 
         if (!receiveroperator) {
             return res.json({ status: false, message: "Operateur de reception introuveable" });
+        }
+
+        if (!sender) {
+            return res.json({ status: false, message: "Utilisateur introuveable" });
         }
 
         const transaction = await prisma.transaction.create({
@@ -44,14 +55,18 @@ export const start = async (req: Request, res: Response) => {
         switch (senderoperator.code) {
             case "wave":
 
-                await waveSend(res, { amount: amount, receiver: receiver, receivername: "The name", transactionId: transaction.id })
+                await waveSend(res, { amount: amount, receiver: receiver, receivername: "Assamoi Ange Emmanuel", transactionId: transaction.id })
                     .then((re: any) => {
                         return res.json(re);
-                    })
-
+                    });
                 break;
+
             case "orange":
-                console.log("sent by orange");
+
+                await orangeSend(res, { amount: amount, receiver: receiver, sender: sender.phonenumber, receivername: "Assamoi Ange Emmanuel", otp: otp, transactionId: transaction.id })
+                    .then((re: any) => {
+                        return res.json(re);
+                    });
                 break;
 
             case "moov":

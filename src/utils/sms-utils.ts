@@ -18,7 +18,7 @@ export const sendSms = async (res: Response, response: any, code: string, receiv
 
                 const access_token = res1.data.access_token;
 
-                await axios.post(ORANGE_SEND_SMS_ENDPOINT, {
+                await axios.post("https://api.orange.com/smsmessaging/v1/outbound/tel%3A%2B2250000/requests", {
                     "outboundSMSMessageRequest": {
                         "address": "tel:+225" + receiver,
                         "outboundSMSTextMessage": {
