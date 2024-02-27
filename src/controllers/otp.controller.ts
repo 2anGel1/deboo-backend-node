@@ -12,7 +12,7 @@ import { prisma } from "../config";
 export const sendotp = async (req: Request, res: Response) => {
 
     try {
-
+        
         const reqBody = await req.body;
 
         const plainCode = generateRandomCode();
@@ -41,7 +41,6 @@ export const sendotp = async (req: Request, res: Response) => {
             });
         } else {
             return await sendSms(res, { status: true, data: { otptoken: otpToken, code: plainCode } }, plainCode, reqBody.phonenumber);
-
         }
 
 

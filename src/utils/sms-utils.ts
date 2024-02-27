@@ -1,11 +1,12 @@
-import { ORANGE_ACCESS_TOKEN, ORANGE_GET_TOKEN_ENDPOINT, ORANGE_SEND_SMS_ENDPOINT } from "../config";
+import { ORANGE_ACCESS_TOKEN } from "../config";
 import { Request, Response } from 'express';
 const axios = require("axios");
 
 
 export const sendSms = async (res: Response, response: any, code: string, receiver: string) => {
 
-    await axios.post(ORANGE_GET_TOKEN_ENDPOINT, {
+    
+    await axios.post("https://api.orange.com/oauth/v3/token", {
         grant_type: "client_credentials"
     },
         {

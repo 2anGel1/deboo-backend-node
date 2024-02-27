@@ -1,4 +1,4 @@
-import { ORANGE_ACCESS_TOKEN_TRANSACTION, prisma, ORANGE_GET_TOKEN_ENDPOINT } from '../config';
+import { ORANGE_ACCESS_TOKEN_TRANSACTION, prisma } from '../config';
 import { Response } from 'express';
 const axios = require("axios");
 
