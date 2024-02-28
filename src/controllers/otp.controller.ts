@@ -43,7 +43,6 @@ export const sendotp = async (req: Request, res: Response) => {
             return await sendSms(res, { status: true, data: { otptoken: otpToken, code: plainCode } }, plainCode, reqBody.phonenumber);
         }
 
-
     } catch (error: any) {
         //
         console.error(error);
