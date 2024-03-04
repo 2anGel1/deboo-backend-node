@@ -13,7 +13,7 @@ export const SENDER_MAIL_PASSWORD = process.env.SENDER_MAIL_PASSWORD || "";
 
 export const SENDER_MAIL_ADDRESS = process.env.SENDER_MAIL_ADDRESS || "";
 
-export const ORANGE_ACCESS_TOKEN = process.env.ORANGE_ACCESS_TOKEN;
+export const ORANGE_ACCESS_TOKEN_SMS = process.env.ORANGE_ACCESS_TOKEN_SMS;
 
 export const WAVE_ACCESS_TOKEN = process.env.WAVE_ACCESS_TOKEN;
 

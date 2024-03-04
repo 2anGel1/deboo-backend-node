@@ -1,4 +1,4 @@
-import { ORANGE_ACCESS_TOKEN } from "../config";
+import { ORANGE_ACCESS_TOKEN_SMS } from "../config";
 import { Request, Response } from 'express';
 const axios = require("axios");
 
@@ -11,7 +11,7 @@ export const sendSms = async (res: Response, response: any, code: string, receiv
     },
         {
             headers: {
-                "Authorization": ORANGE_ACCESS_TOKEN,
+                "Authorization": ORANGE_ACCESS_TOKEN_SMS,
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         }).then(async (res1: any) => {
