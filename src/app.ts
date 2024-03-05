@@ -9,6 +9,9 @@ const cors = require("cors");
 import ms from "ms";
 import operatorRoute from "./routes/operator.route";
 
+const swaggerDocument = require('../swagger-docs.json');
+const swaggerUi = require('swagger-ui-express');
+
 declare module "express" {
   interface Request {
     session: Session & { [key: string]: any };
@@ -38,6 +41,8 @@ app.use(
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(basePath + "/transaction", transactionRoute);
 app.use(basePath + "/operator", operatorRoute);

@@ -1,0 +1,170 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger ERVI - OpenAPI 3.0",
+    "description": "Ceci est la documentation Swagger du projet Deboo Backend",
+    "contact": {
+      "email": "angeemmanuelassamoi@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000/api/v1",
+      "name": "local"
+    },
+    {
+      "url": "https://deboo-backend-28dex.ondigitalocean.app/api/v1",
+      "name": "online"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Transaction",
+      "description": "Operations de transactions"
+    }
+  ],
+  "paths": {
+    "/transaction/start": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "description": "transction du user account vers le merchant account",
+        "operationId": "transaction-startId",
+        "requestBody": {
+          "description": "Corps de la requête",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionBody"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "echec de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseFail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "echec du serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TransactionBody": {
+        "type": "object",
+        "properties": {
+          "sendoperatorId": {
+            "type": "string",
+            "example": "debfe2ce-da94-42a4-8022-0a7175574927"
+          },
+          "receiveoperatorId": {
+            "type": "string",
+            "example": "debfe2ce-da94-42a4-8022-0a7175574927"
+          },
+          "senderId": {
+            "type": "string",
+            "example": "bd31cd4f-dde6-4a49-90ad-0d813dc9525f"
+          },
+          "receiver": {
+            "type": "string",
+            "example": "0102030405"
+          },
+          "amount": {
+            "type": "string",
+            "example": "100"
+          },
+          "otp": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseSuccess": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object"
+          },
+          "message": {
+            "type": "string",
+            "example": "message de succès"
+          }
+        }
+      },
+      "ResponseFail": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "meesage d'erreur"
+          }
+        }
+      },
+      "ResponseUnauthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "ResponseError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Erreur interne au serveur"
+          }
+        }
+      }
+    }
+  }
+}

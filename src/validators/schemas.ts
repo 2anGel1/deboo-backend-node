@@ -3,7 +3,7 @@ import vine from "@vinejs/vine";
 
 export const phonenumberSchema = vine.string().minLength(10).maxLength(10);
 
-export const otpSchema = vine.string().minLength(4).maxLength(4).optional();
+export const otpSchema = vine.string().maxLength(4).optional();
 
 export const firstNameSchema = vine.string().minLength(1).maxLength(50);
 
