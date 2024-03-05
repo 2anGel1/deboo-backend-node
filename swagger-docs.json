@@ -1,8 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Swagger ERVI - OpenAPI 3.0",
-    "description": "Ceci est la documentation Swagger du projet Deboo Backend",
+    "title": "Swagger Deboo Backend - OpenAPI 3.0",
     "contact": {
       "email": "angeemmanuelassamoi@gmail.com"
     },
@@ -22,6 +21,18 @@
     {
       "name": "Transaction",
       "description": "Operations de transactions"
+    },
+    {
+      "name": "Operator",
+      "description": "Operations sur les operateurs"
+    },
+    {
+      "name": "Otp",
+      "description": "Operations sur les One Time Password (OTP)"
+    },
+    {
+      "name": "Authentification",
+      "description": "Operations d'authentification"
     }
   ],
   "paths": {
@@ -79,7 +90,411 @@
             }
           },
           "500": {
-            "description": "echec du serveur",
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operator/seed": {
+      "post": {
+        "tags": [
+          "Operator"
+        ],
+        "description": "création automatique des opérateurs principaux",
+        "operationId": "operator-seedId",
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operator/all": {
+      "get": {
+        "tags": [
+          "Operator"
+        ],
+        "description": "obteneir tous les opérateurs",
+        "operationId": "operator-allId",
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "array",
+                      "example": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/otp/send/sms": {
+      "post": {
+        "tags": [
+          "Otp"
+        ],
+        "description": "envoie d'otp par sms",
+        "operationId": "otp-sendId",
+        "requestBody": {
+          "description": "Corps de la requête",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phonenumber": {
+                    "type": "string",
+                    "example": "0566398781"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phonenumber": {
+                    "type": "string",
+                    "example": "0566398781"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/otp/send/email": {
+      "post": {
+        "tags": [
+          "Otp"
+        ],
+        "description": "envoie d'otp par email",
+        "operationId": "otp-send-emailId",
+        "requestBody": {
+          "description": "Corps de la requête",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "angeemmanuelassamoi@gmail.com"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "angeemmanuelassamoi@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/otp/check": {
+      "post": {
+        "tags": [
+          "Otp"
+        ],
+        "description": "vérification de l'otp",
+        "operationId": "otp-checkId",
+        "requestBody": {
+          "description": "Corps de la requête",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "otp": {
+                    "type": "string",
+                    "example": "1234"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "otp": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Otp"
+        ],
+        "description": "connexion etape1: envoie du numéro de téléphone",
+        "operationId": "auth-loginId",
+        "requestBody": {
+          "description": "Corps de la requête",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phonenumber": {
+                    "type": "string",
+                    "example": "0566398781"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phonenumber": {
+                    "type": "string",
+                    "example": "0566398781"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "succès de la requête",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseUnauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "erreur rencotrée par le serveur",
             "content": {
               "application/json": {
                 "schema": {
@@ -94,6 +509,27 @@
   },
   "components": {
     "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fisrtname": {
+            "type": "string",
+            "example": "Ange Emmanuel"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Assamoi"
+          },
+          "phonenumber": {
+            "type": "string",
+            "example": "0566398781"
+          },
+          "email": {
+            "type": "string",
+            "example": "angeemmanuelassamoi@gmail.com"
+          }
+        }
+      },
       "TransactionBody": {
         "type": "object",
         "properties": {
@@ -143,7 +579,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "example": "meesage d'erreur"
+            "example": "message d'erreur"
           }
         }
       },

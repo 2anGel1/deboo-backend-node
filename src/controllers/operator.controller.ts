@@ -31,9 +31,21 @@ export const seed = async (req: Request, res: Response) => {
     ];
 
     data.forEach(async (operator) => {
-        await prisma.operator.create({
-            data: operator
+        const existingOperator = await prisma.operator.findFirst({
+            where: {
+                OR: [
+                    { image: operator.image },
+                    { label: operator.label },
+                    { code: operator.code }
+                ]
+            }
         });
+
+        if (!existingOperator) {
+            await prisma.operator.create({
+                data: operator
+            });
+        }
     });
 
     return res.json({ status: true, message: "Ok" });
@@ -43,5 +55,5 @@ export const all = async (req: Request, res: Response) => {
 
     const operators = await prisma.operator.findMany();
     return res.json({ status: true, data: operators });
-    
+
 }

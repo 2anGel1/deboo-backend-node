@@ -20,16 +20,8 @@ export const login = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(200).json({ status: false, message: "Aucun compte trouvé" });
     }
-    // const isPinValid = comparePlainTextToHashedText(
-    //   pin,
-    //   user.pinHash!
-    // );
-    // if (!isPinValid) {
-    //   return res.status(200).json({ status: false, message: "Mot de passe incorrect." });
-    // }
 
-    // const sessionToken = await createSession(user.id);
-    return res.status(200).json({ status: true, message: "Login success", data: { user: user } });
+    return res.status(200).json({ status: true, message: "ok", data: { user: user } });
 
   } catch (error: any) {
     if (error.code == "E_VALIDATION_ERROR") {

@@ -93,7 +93,7 @@ export const orangeSend = async (res: Response, data: any) => {
                                                         }
                                                     });
 
-                                                    re = { status: true, data: payment_url, transactionId: data.transactionId };
+                                                    re = { status: true, data: { orange_launch_url: payment_url }, transactionId: data.transactionId };
 
                                                 } else {
                                                     re = fail;

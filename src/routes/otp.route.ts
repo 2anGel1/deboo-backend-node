@@ -6,7 +6,7 @@ const otpRoute = express.Router();
 
 otpRoute.post("/send/email", otpEmail, sendotp);
 otpRoute.post("/check", requireOtp, checkotp);
-otpRoute.post("/send", sendotp);
+otpRoute.post("/send/sms", sendotp);
 
 export default otpRoute;
 
