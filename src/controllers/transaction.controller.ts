@@ -1,6 +1,7 @@
 import { transactionValidator } from '../validators/transaction-validators';
 import { waveSend, waveTransfert } from '../utils/wave-utils';
 import { orangeSend } from '../utils/orange-utils';
+import { mtnSend } from '../utils/mtn-utils';
 import { Request, Response } from 'express';
 import { prisma } from "../config";
 
@@ -74,7 +75,11 @@ export const start = async (req: Request, res: Response) => {
                 break;
 
             case "mtn":
-                console.log("sent by mtn");
+
+                await mtnSend(res, { amount: amount, receiver: receiver, sender: sender.phonenumber, receivername: "Assamoi Ange Emmanuel", otp: otp, transactionId: transaction.id })
+                    .then((re: any) => {
+                        return res.json(re);
+                    });
                 break;
 
             default:

@@ -4,7 +4,6 @@ const axios = require("axios");
 
 export const orangeSend = async (res: Response, data: any) => {
 
-
     var re = null;
     const fail = { status: false, message: "Echec du transfert. Contactez nous pour plus d'informations" };
 
